@@ -39,9 +39,14 @@ class MySQLzhanhuiPipeline(object):
 
     #将每行更新或写入数据库中
     def _do_upinsert(self, conn, item):
-        sql = "insert into zh(title,stime,etime,city,province,address,zhuban) values(%s,%s,%s,%s,%s,%s,%s)"
-        params = (item['title'],item['stime'],item['etime'],item['province'],item['city'],item['address'],item['zhuban'])
-        conn.execute(sql,params)
+    	n=conn.execute("select * from zh where title=%s",item['title'])
+    	if n:
+    		print "yes"
+    	else:
+    		print n
+        	sql = "insert into zh(title,stime,etime,city,province,address,zhuban) values(%s,%s,%s,%s,%s,%s,%s)"
+        	params = (item['title'],item['stime'],item['etime'],item['province'],item['city'],item['address'],item['zhuban'])
+        	conn.execute(sql,params)
     #异常处理
     def _handle_error(self, failue, item, spider):
     	log.err(failure)
