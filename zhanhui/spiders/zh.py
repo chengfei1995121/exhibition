@@ -20,7 +20,7 @@ class zhanhui(scrapy.Spider):
                     item=ZHItem()
                     title=response.xpath("//div[@class='zhmaincontent']/h1/text()").extract()
                     t=title[0]
-                    t=t.replace(' ','')
+                    t=t.replace(' ','').replace('\n','')
                     item['title']=t
                     for sel in response.xpath("//div[@class='zhxxcontent']"):
                         hanye=sel.xpath("p/a/text()").extract()[0]
