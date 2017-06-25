@@ -19,7 +19,6 @@ NEWSPIDER_MODULE = 'zhanhui.spiders'
 #USER_AGENT = 'zhanhui (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -97,3 +96,6 @@ ITEM_PIPELINES = {
 'zhanhui.pipelines.MySQLzhanhuiPipeline': 300,
 }
 ROBOTSTXT_OBEY = False
+
+
+DUPEFILTER_CLASS = 'scrapy.dupefilters.BaseDupeFilter'

@@ -11,6 +11,7 @@ from datetime import datetime
 from hashlib import md5
 import MySQLdb
 import MySQLdb.cursors
+import chardet
 
 class MySQLzhanhuiPipeline(object):
     def __init__(self, dbpool):
@@ -39,15 +40,18 @@ class MySQLzhanhuiPipeline(object):
 
     #将每行更新或写入数据库中
     def _do_upinsert(self, conn, item):
-    		sql="select * from zh where title='%s'" % (item['title'])
-    		params=(item['title'])
-    		n=conn.execute(sql)
-    		if n:
-    			print "yes"
-    		else:
-        		sql = "insert into zh(title,stime,etime,city,province,address,zhuban) values(%s,%s,%s,%s,%s,%s,%s)"
-        		params = (item['title'],item['stime'],item['etime'],item['province'],item['city'],item['address'],item['zhuban'])
-        		n=conn.execute(sql,params)
+            """s=item['title']
+            sql="select * from infotable where 事件名称=%s" % (s)
+            print sql.encode("GB18030");
+            n=conn.execute(sql)
+            print n
+            print "hahaha"
+            if n:
+                 print "yes"
+            else:"""
+            sql = "insert into infotable(事件名称,开始日期,结束日期,举办城市,是否国际性组织,是否国家政府,是否省政府,是否地方政府,是否国内民间协会,是否国际民间协会,是否国内行业协会,是否国际行业协会,主要影响成人,是否是展会,是否影响商务人群,最大影响全球) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            params = (item['title'],item['stime'],item['etime'],item['city'],item['guoji'],item['guojia'],item['sheng'],item['shi'],item['gnmx'],item['gjmx'],item['gnhx'],item['gjhx'],item['chengren'],item['zh1'],item['shangwu'],item['yxgj'])
+            conn.execute(sql,params)
     #异常处理
     def _handle_error(self, failue, item, spider):
-    	log.err(failure)
+        log.err(failure)
