@@ -19,6 +19,10 @@ class zhanhui(scrapy.Spider):
     def parse_next(self,response):
                     item=ZHItem()
                     s=''
+
+                    hot=response.xpath("//*[@id='txtClicks']/text()").extract()
+                    for i in hot:
+                        print i
                     """drecipt=response.xpath("//div[@class='zhgkcon']/div[@id='Span1']")
                     for i in drecipt.xpath("div/text()").extract():
                         s=s+i;
@@ -111,6 +115,7 @@ class zhanhui(scrapy.Spider):
                             item['guoji']='0'
                             item['sheng']='0'
                             item['shi']='0'
+
                         item['zh1']='1'
                         item['chengren']='1'
                         item['shangwu']='1'
@@ -118,4 +123,43 @@ class zhanhui(scrapy.Spider):
                             item['yxgj']='1'
                         else:
                             item['yxgj']='0'
+                        n=len(time)
+                    if n>10:
+                        hosity=time[9];
+                        if hosity.find(u"举办届数")!=-1:
+                                lishi=hosity[0:2]
+                                if lishi>20:
+                                    item['lishi']='3'
+                                else:
+                                    if lishi>10:
+                                        item['lishi']='2'
+                                    else:
+                                        item['lishi']='1'
+                                if time[10].find("举办周期")!=-1:
+                                    zq=time[10]
+                                    if zq.find(u"一"):
+                                        item['pl']='1'
+                                    else:
+                                        if zq.find(u"二"):
+                                            item['pl']='2'
+                                        else:
+                                            item['pl']='3'
+                                else:
+                                    item['pl']='1'
+                        else:
+                                item['lishi']='1'
+                                if hosity.find(u"举办周期")!=-1:
+                                    zq=hosity[3]
+                                    if zq.find(u"一"):
+                                        item['pl']='1'
+                                    else:
+                                        if zq.find(u"二"):
+                                            item['pl']='2'
+                                        else:
+                                            item['pl']='3'
+                                else:
+                                    item['pl']='1'   
+                    else:
+                        item['lishi']='1'
+                        item['pl']='1' 
                     yield item

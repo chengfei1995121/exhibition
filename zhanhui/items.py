@@ -27,3 +27,5 @@ class ZHItem(scrapy.Item):
     chengren=scrapy.Field()
     shangwu=scrapy.Field()
     yxgj=scrapy.Field()
+    lishi=scrapy.Field()
+    pl=scrapy.Field()

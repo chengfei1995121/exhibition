@@ -49,8 +49,8 @@ class MySQLzhanhuiPipeline(object):
             if n:
                  print "yes"
             else:"""
-            sql = "insert into infotable(事件名称,开始日期,结束日期,举办城市,是否国际性组织,是否国家政府,是否省政府,是否地方政府,是否国内民间协会,是否国际民间协会,是否国内行业协会,是否国际行业协会,主要影响成人,是否是展会,是否影响商务人群,最大影响全球) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            params = (item['title'],item['stime'],item['etime'],item['city'],item['guoji'],item['guojia'],item['sheng'],item['shi'],item['gnmx'],item['gjmx'],item['gnhx'],item['gjhx'],item['chengren'],item['zh1'],item['shangwu'],item['yxgj'])
+            sql = "insert into infotable(事件名称,开始日期,结束日期,举办城市,是否国际性组织,是否国家政府,是否省政府,是否地方政府,是否国内民间协会,是否国际民间协会,是否国内行业协会,是否国际行业协会,主要影响成人,是否是展会,是否影响商务人群,最大影响全球,事件历史悠久程度,事件一年内频次) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            params = (item['title'],item['stime'],item['etime'],item['city'],item['guoji'],item['guojia'],item['sheng'],item['shi'],item['gnmx'],item['gjmx'],item['gnhx'],item['gjhx'],item['chengren'],item['zh1'],item['shangwu'],item['yxgj'],item['lishi'],item['pl'])
             conn.execute(sql,params)
     #异常处理
     def _handle_error(self, failue, item, spider):
